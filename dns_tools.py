@@ -1,3 +1,4 @@
+# Import necessary modules
 import subprocess
 import os
 import validators
@@ -5,7 +6,23 @@ import sys
 import time
 
 
+# Main program entry point
 def main():
+    """
+    The main entry point of the DNS Query Tool.
+    
+    This function is responsible for:
+    1. Clearing the screen and printing a header.
+    2. Asking the user if they want to install the required tools.
+    3. If yes, updating the package list and installing the necessary tools.
+    4. Passing control to the `main_input` function to get the initial URL input.
+    
+    Parameters:
+    None
+    
+    Returns:
+    None
+    """
     clear_screen()
     print(" \n DNS Query Tool")
     print(" ----------------")
@@ -19,7 +36,21 @@ def main():
         check_install('nmap')
     main_input()
 
+
+# Function to get user input and perform a DNS query
 def main_input():
+    """
+    Get user input (a URL), validate it, and pass it on to further processing.
+    
+    This function is responsible for getting the initial input from the user,
+    validating it, and then passing it on to the `main_options` function for further handling.
+    
+    Parameters:
+    None
+    
+    Returns:
+    None
+    """
     clear_screen()
     while True:      
         global url 
@@ -47,18 +78,45 @@ def main_input():
         main_options(url)
 
 
-def is_valid_url(url):
+# Function to validate a URL using the validators module
+def is_valid_url(url: str) -> bool:
+    """
+    Validate a URL using the validators.url function.
+    
+    This function takes a URL as input and returns True if it's valid, False otherwise.
+    
+    Parameters:
+    url (str): The URL to be validated.
+    
+    Returns:
+    bool: Whether the provided URL is valid or not.
+    """
     return validators.url(url)
 
 
-def get_dns_records(url):
-    """Perform a 'dig' query on the provided URL."""
+# Function to retrieve DNS records using a 'dig' query
+def get_dns_records(url: str) -> subprocess.CompletedProcess:
+    """
+    Perform a 'dig' query on the provided URL to retrieve its DNS records.
+    
+    This function uses the 'dig' command-line tool with the '+short' option to return only the IP addresses.
+    
+    Parameters:
+    url (str): The URL for which DNS records are to be retrieved.
+    
+    Returns:
+    subprocess.CompletedProcess: The result of running the 'dig' query, containing the DNS records.
+    """
+    # Run the 'dig' command with the '+short' option and capture output
     return subprocess.run(['dig', '+short', url], capture_output=True, text=True)
 
 
-def main_options(url):
+# Main program loop
+def main_options(url: str) -> None:
     while True:
         clear_screen()
+
+        # Display available tools
         print(" Execute the specified command in a Linux terminal")
         print(" URL: ", url)
         print(" \n Available commands:\n")
@@ -89,8 +147,16 @@ def main_options(url):
         else:
             return   
 
-
-def f_nslookup(url):
+# Function to run nslookupo with user input
+def f_nslookup(url: str) -> None:
+    """
+    Run the nslookup command with user input.
+    
+    This function repeatedly prompts the user for a command choice and attempts to run the corresponding nslookup command.
+    
+    Parameters:
+    url (str): The URL to pass as an argument to the nslookup command.
+    """    
     while True:
         clear_screen()
         print(" Execute the specified nslookup command")
@@ -125,7 +191,16 @@ def f_nslookup(url):
         input("\n < Press enter to continue... >")
 
 
-def f_dig(url):
+# Function to run dig with user input
+def f_dig(url: str) -> None:
+    """
+    Run the dig command with user input.
+    
+    This function repeatedly prompts the user for a command choice and attempts to run the corresponding dig command.
+    
+    Parameters:
+    url (str): The URL to pass as an argument to the dig command.
+    """     
     while True:
         clear_screen()
         print(" Execute the specified dig command")
@@ -158,9 +233,18 @@ def f_dig(url):
         else:
             return
         input("\n < Press enter to continue... >")
-   
 
-def f_host(url):
+
+# Function to run dig with user input
+def f_host(url: str) -> None:
+    """
+    Run the host command with user input.
+    
+    This function repeatedly prompts the user for a command choice and attempts to run the corresponding host command.
+    
+    Parameters:
+    url (str): The URL to pass as an argument to the host command.
+    """      
     while True:
         clear_screen()
         print(" Execute the specified host command")
@@ -192,7 +276,16 @@ def f_host(url):
         input("\n < Press enter to continue... >")
 
 
-def f_curl(url):
+# Function to run curl with user input
+def f_curl(url: str) -> None:
+    """
+    Run the curl command with user input.
+    
+    This function repeatedly prompts the user for a command choice and attempts to run the corresponding curl command.
+    
+    Parameters:
+    url (str): The URL to pass as an argument to the curl command.
+    """    
     while True:
         clear_screen()
         print(" Execute the specified curl command")
@@ -239,7 +332,16 @@ def f_curl(url):
         input("\n < Press enter to continue... >")
 
 
-def f_traceroute(url):
+# Function to run traceroute with user input
+def f_traceroute(url: str) -> None:
+    """
+    Run the traceroute command with user input.
+    
+    This function repeatedly prompts the user for a command choice and attempts to run the corresponding traceroute command.
+    
+    Parameters:
+    url (str): The URL to pass as an argument to the traceroute command.
+    """    
     while True:
         clear_screen()
         print(" Execute the specified traceroute command")
@@ -277,7 +379,16 @@ def f_traceroute(url):
         input("\n < Press enter to continue... >")
 
 
-def f_nmap(url):
+# Function to run nmap with user input
+def f_nmap(url: str) -> None:
+    """
+    Run the nmap command with user input.
+    
+    This function repeatedly prompts the user for a command choice and attempts to run the corresponding nmap command.
+    
+    Parameters:
+    url (str): The URL to pass as an argument to the nmap command.
+    """
     while True:
         clear_screen()
         print(" Execute the specified nmap command")
@@ -312,7 +423,16 @@ def f_nmap(url):
         input("\n < Press enter to continue... >")
 
 
-def f_whois(url):
+# Function to run whois with user input
+def f_whois(url: str) -> None:
+    """
+    Run the whois command with user input.
+    
+    This function repeatedly prompts the user for a command choice and attempts to run the corresponding whois command.
+    
+    Parameters:
+    url (str): The URL to pass as an argument to the whois command.
+    """    
     while True:
         clear_screen()
         print(" Execute the specified whois command")
@@ -339,18 +459,33 @@ def f_whois(url):
         else:
             return
         input("\n < Press enter to continue... >")
-        
 
+
+# Function to clear the terminal screen
 def clear_screen() ->None:
-
+    """
+    Clear the terminal screen.
+    
+    This function checks if the operating system is POSIX (i.e., Linux or macOS)
+    and uses the 'clear' command accordingly. For Windows, it uses 'cls'.
+    """ 
     if os.name == "posix":
         os.system("clear")
     else:
         os.system("cls")
 
 
-
-def check_install(package):
+# Function to check and install required packages
+def check_install(package: str) -> None:
+    """
+    Check if a package is installed, and install it if not.
+    
+    This function uses the 'apt policy' command to check if a package is already installed.
+    If not, it attempts to install the package using 'sudo apt-get install'.
+    
+    Parameters:
+    package (str): The name of the package to check or install.
+    """    
     result = subprocess.run(['apt', 'policy', package], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     print(result.stdout)
     if 'install ok installed' in result.stdout:
