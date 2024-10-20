@@ -21,9 +21,8 @@ def main():
 
 def main_input():
     clear_screen()
-    while True:
-        # Input URL from user
-        global url  # make url a global variable to access it in execute_command()
+    while True:      
+        global url 
         while True:
             clear_screen()
 
@@ -348,7 +347,7 @@ def clear_screen() ->None:
         os.system("clear")
     else:
         os.system("cls")
-    #print("\n")
+
 
 
 def check_install(package):
